@@ -2,7 +2,7 @@ import Link from "next/link";
 import { IoIosAddCircle } from "react-icons/io";
 
 async function getData() {
-  const res = await fetch("http://localhost:8000/api/notes", {
+  const res = await fetch("https://api-notes-nine.vercel.app/api/notes", {
     cache: "no-store",
     // next: {
     //   revalidate: 30,

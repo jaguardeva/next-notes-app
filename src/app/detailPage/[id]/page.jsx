@@ -18,13 +18,16 @@ function DetailPage({ params }) {
   async function updateData(params, title, body) {
     const id = params.id;
     try {
-      const response = await fetch(`http://localhost:8000/api/notes/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, body }),
-      });
+      const response = await fetch(
+        `https://api-notes-nine.vercel.app/api/notes/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ title, body }),
+        }
+      );
 
       const data = await response.json();
       setMessage(data.message);
@@ -40,7 +43,7 @@ function DetailPage({ params }) {
 
   async function getData(params) {
     const response = await fetch(
-      `http://localhost:8000/api/notes/${params.id}`
+      `https://api-notes-nine.vercel.app/api/notes/${params.id}`
     );
     const { data } = await response.json();
     setTitle(data[0].title);
