@@ -38,9 +38,9 @@ export default async function Home() {
                   {note.title}
                 </h1>
                 <p className="text-sm md:text-md text-gray-500">
-                  {new Date(note.updated_at).toLocaleDateString("id-ID", {
+                  {new Date(note.updated_at).toLocaleString("id-ID", {
                     month: "long",
-                    day: "numeric",
+                    day: "2-digit",
                   })}
                 </p>
               </div>
