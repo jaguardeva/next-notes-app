@@ -59,6 +59,7 @@ function DetailPage({ params }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     await updateData(params, title, body);
     router.refresh();
     setShowAlert(true);
@@ -77,15 +78,12 @@ function DetailPage({ params }) {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(
-        `https://api-notes-phi.vercel.app/api/notes/delete/${params.id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      fetch(`https://api-notes-phi.vercel.app/api/notes/delete/${params.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
     } catch (error) {
       console.log("Delete failed: ", error.message);
     }

@@ -38,7 +38,7 @@ export default async function Home() {
                   {note.title}
                 </h1>
                 <p className="text-sm md:text-md text-gray-500">
-                  {new Date(note.updated_at).toLocaleDateString("en-US", {
+                  {new Date(note.updated_at).toLocaleDateString("id-ID", {
                     month: "long",
                     day: "numeric",
                   })}
