@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Button from "@/components/Button";
 import { useRouter } from "next/navigation";
 
-const API_ENDPOINT = "https://api-notes-nine.vercel.app/api/notes";
+const API_ENDPOINT = "https://api-notes-phi.vercel.app/api/notes";
 
 export default function AddNotePage() {
   const [text, setText] = useState("");

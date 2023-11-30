@@ -19,7 +19,7 @@ function DetailPage({ params }) {
     const id = params.id;
     try {
       const response = await fetch(
-        `https://api-notes-nine.vercel.app/api/notes/${id}`,
+        `https://api-notes-phi.vercel.app/api/notes/${id}`,
         {
           method: "PUT",
           headers: {
@@ -43,11 +43,11 @@ function DetailPage({ params }) {
 
   async function getData(params) {
     const response = await fetch(
-      `https://api-notes-nine.vercel.app/api/notes/${params.id}`
+      `https://api-notes-phi.vercel.app/api/notes/${params.id}`
     );
     const { data } = await response.json();
-    setTitle(data[0].title);
-    setBody(data[0].body);
+    setTitle(data.rows[0].title);
+    setBody(data.rows[0].body);
   }
 
   const handleTitleKeyDown = (e) => {
@@ -78,7 +78,7 @@ function DetailPage({ params }) {
   const handleDelete = async () => {
     try {
       const response = await fetch(
-        `http://localhost:8000/api/notes/delete/${params.id}`,
+        `https://api-notes-phi.vercel.app/api/notes/delete/${params.id}`,
         {
           method: "DELETE",
           headers: {

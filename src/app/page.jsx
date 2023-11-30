@@ -2,7 +2,7 @@ import Link from "next/link";
 import { IoIosAddCircle } from "react-icons/io";
 
 async function getData() {
-  const res = await fetch("https://api-notes-nine.vercel.app/api/notes", {
+  const res = await fetch("https://api-notes-phi.vercel.app/api/notes", {
     cache: "no-store",
     // next: {
     //   revalidate: 30,
@@ -14,7 +14,7 @@ async function getData() {
   }
 
   const data = await res.json();
-  const sortedData = data.data.sort(
+  const sortedData = data.data.rows.sort(
     (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
   );
   return sortedData;
