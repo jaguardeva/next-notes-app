@@ -1,0 +1,7 @@
+{
+  "build": {
+    "env": {
+      "LANG": "id-ID.UTF-8"
+    }
+  }
+}
