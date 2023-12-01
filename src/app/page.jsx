@@ -14,11 +14,38 @@ async function getData() {
   }
 
   const data = await res.json();
-  const sortedData = data.data.rows.sort(
+  const sortedData = data.data.sort(
     (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
   );
   return sortedData;
 }
+
+const timeStampToDate = (timestampString) => {
+  const date = new Date(timestampString);
+  const currDate = new Date();
+
+  const diffInMilliseconds = currDate - date;
+  const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+  if (diffInDays < 1) {
+    // Kurang dari 24 jam, tampilkan jam
+    return date.toLocaleString("id-ID", { timeStyle: "short" });
+  } else if (diffInDays < 365) {
+    // Lebih dari 1 hari tapi kurang dari 1 tahun, tampilkan tanggal dan bulan
+    return date.toLocaleString("id-ID", { day: "numeric", month: "long" });
+  } else {
+    // Lebih dari 1 tahun, tampilkan tanggal, bulan, dan tahun
+    return date.toLocaleString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  }
+};
+
+// Contoh pemanggilan fungsi
+const timestampString = new Date().toISOString();
+console.log(timeStampToDate(timestampString));
 
 export default async function Home() {
   const data = await getData();
@@ -38,10 +65,7 @@ export default async function Home() {
                   {note.title}
                 </h1>
                 <p className="text-sm md:text-md text-gray-500">
-                  {new Date(note.updated_at).toLocaleString("id-ID", {
-                    month: "long",
-                    day: "2-digit",
-                  })}
+                  {timeStampToDate(note.updated_at)}
                 </p>
               </div>
 

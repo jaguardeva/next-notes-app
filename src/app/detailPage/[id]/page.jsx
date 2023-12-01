@@ -11,6 +11,7 @@ function DetailPage({ params }) {
   const [showAlert, setShowAlert] = useState(false);
   const [deleteConfirm, setDeleteConfirm] = useState(false);
   const [message, setMessage] = useState("");
+  const [update_at, setUpdate_at] = useState("");
   const router = useRouter();
   const titleInputRef = useRef(null);
   const bodyInputRef = useRef(null);
@@ -48,6 +49,9 @@ function DetailPage({ params }) {
     const { data } = await response.json();
     setTitle(data.rows[0].title);
     setBody(data.rows[0].body);
+    setUpdate_at(data.rows[0].updated_at);
+
+    return data;
   }
 
   const handleTitleKeyDown = (e) => {
@@ -78,17 +82,44 @@ function DetailPage({ params }) {
 
   const handleDelete = async () => {
     try {
-      fetch(`https://api-notes-phi.vercel.app/api/notes/delete/${params.id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await fetch(
+        `https://api-notes-phi.vercel.app/api/notes/delete/${params.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Note deleted successfully");
+      router.push("/");
+      router.refresh();
     } catch (error) {
-      console.log("Delete failed: ", error.message);
+      console.error("Delete failed: ", error.message);
     }
-    router.push("/");
-    router.refresh();
+  };
+
+  const timeStampToDate = (timestampString) => {
+    const date = new Date(timestampString);
+    const currDate = new Date();
+
+    const diffInMilliseconds = currDate - date;
+    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+
+    if (diffInDays < 1) {
+      // Kurang dari 24 jam, tampilkan jam
+      return date.toLocaleString("id-ID", { timeStyle: "short" });
+    } else if (diffInDays < 365) {
+      // Lebih dari 1 hari tapi kurang dari 1 tahun, tampilkan tanggal dan bulan
+      return date.toLocaleString("id-ID", { day: "numeric", month: "long" });
+    } else {
+      // Lebih dari 1 tahun, tampilkan tanggal, bulan, dan tahun
+      return date.toLocaleString("id-ID", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    }
   };
 
   return (
@@ -162,6 +193,11 @@ function DetailPage({ params }) {
             ref={titleInputRef}
             onKeyDown={handleTitleKeyDown}
           />
+
+          <p>
+            <span className="text-gray-500 font-bold">Last updated at: </span>
+            {timeStampToDate(update_at)}
+          </p>
 
           <textarea
             placeholder="Body"

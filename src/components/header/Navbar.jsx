@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import Button from "../Button";
 import { usePathname } from "next/navigation";
 
 export default function Navbar({ children }) {
@@ -10,7 +9,7 @@ export default function Navbar({ children }) {
 
   return (
     <>
-      <header className="w-full shadow-md sticky top-0 bg-white">
+      <header className="w-full shadow-md sticky top-0 bg-whit">
         <div className="max-w-[1240px] mx-auto px-4 flex justify-between items-center h-[80px]">
           {currentPath === "/" ? (
             <Link href="/">
